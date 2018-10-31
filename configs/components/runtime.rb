@@ -27,6 +27,8 @@ component "runtime" do |pkg, settings, platform|
   elsif platform.name =~ /sles-15/
     # These platforms use their default OS toolchain and have package
     # dependencies configured in the platform provisioning step.
+  elsif platform.name =~ /osx-10.12/
+    pkg.build_requires "gcc@8"
   else
     pkg.build_requires "pl-gcc"
   end
