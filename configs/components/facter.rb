@@ -36,7 +36,7 @@ component "facter" do |pkg, settings, platform|
   end
 
   if platform.is_macos?
-    pkg.build_requires "yaml-cpp"
+    pkg.build_requires "yaml-cpp" unless platform.name =~ /osx-10.12/
   elsif platform.name =~ /solaris-10/
     pkg.build_requires "http://pl-build-tools.delivery.puppetlabs.net/solaris/10/pl-yaml-cpp-0.5.1.#{platform.architecture}.pkg.gz"
   elsif platform.is_cross_compiled_linux? || platform.name =~ /solaris-11/

@@ -18,6 +18,10 @@ platform "osx-10.12-x86_64" do |plat|
   plat.provision_with 'su test -c \'echo | /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"\''
   plat.provision_with 'sudo chown -R test:admin /var/empty/Library/'
 
+  packages = %w[yaml-cpp gmp mpfr mpc gcc@8]
+
+  plat.provision_with "su test -c '/usr/local/bin/brew install #{packages.join(' ')}'"
+
   plat.vmpooler_template 'osx-1012-x86_64'
   plat.output_dir File.join('apple', '10.12', 'puppet5', 'x86_64')
 end
