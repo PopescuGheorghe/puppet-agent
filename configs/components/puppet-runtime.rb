@@ -40,12 +40,6 @@ component 'puppet-runtime' do |pkg, settings, platform|
     pkg.requires 'libyaml-cpp0_6'
   end
 
-  if platform.name =~ /osx-10.12/
-    pkg.build_requires 'gmp'
-    pkg.build_requires 'mpfr'
-    pkg.build_requires 'mpc'
-  end
-
   pkg.install_only true
 
   if platform.is_cross_compiled_linux? || platform.is_solaris? || platform.is_aix?
