@@ -33,8 +33,6 @@ component "cpp-hocon" do |pkg, settings, platform|
     cmake = "cmake"
     toolchain = ""
     boost_static_flag = "-DBOOST_STATIC=OFF"
-
-    pkg.environment "CXXFLAGS", "-Wno-error=address -Wno-error=nonnull-compare" if platform.name =~ /fedora-29/
   else
     toolchain = "-DCMAKE_TOOLCHAIN_FILE=/opt/pl-build-tools/pl-build-toolchain.cmake"
     cmake = "/opt/pl-build-tools/bin/cmake"
