@@ -48,6 +48,7 @@ component "cpp-pcp-client" do |pkg, settings, platform|
     toolchain = ""
     boost_static_flag = "-DBOOST_STATIC=OFF"
     platform_flags = "-DCMAKE_CXX_FLAGS='#{settings[:cflags]} -Wimplicit-fallthrough=0'"
+    special_flags = "-DENABLE_CXX_WERROR=OFF"
   elsif platform.is_cisco_wrlinux?
     platform_flags = "-DLEATHERMAN_USE_LOCALES=OFF"
   end
@@ -64,6 +65,7 @@ component "cpp-pcp-client" do |pkg, settings, platform|
           -DCMAKE_INSTALL_RPATH=#{settings[:libdir]} \
           -DCMAKE_SYSTEM_PREFIX_PATH=#{settings[:prefix]} \
           #{boost_static_flag} \
+          #{special_flags} \
           ."
     ]
   end

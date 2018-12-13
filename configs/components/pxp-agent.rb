@@ -53,7 +53,7 @@ component "pxp-agent" do |pkg, settings, platform|
     cmake = "cmake"
     toolchain = ""
     boost_static_flag = "-DBOOST_STATIC=OFF"
-    special_flags += " -DCMAKE_CXX_FLAGS='#{settings[:cflags]} -Wno-deprecated -Wimplicit-fallthrough=0' "
+    special_flags += " -DENABLE_CXX_WERROR=OFF -DCMAKE_CXX_FLAGS='#{settings[:cflags]} -Wno-deprecated -Wimplicit-fallthrough=0' "
   elsif platform.is_cisco_wrlinux?
     special_flags += " -DLEATHERMAN_USE_LOCALES=OFF "
   end
