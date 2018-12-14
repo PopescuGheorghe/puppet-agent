@@ -16,7 +16,7 @@ component "runtime" do |pkg, settings, platform|
     pkg.build_requires "pl-binutils-#{platform.architecture}"
   elsif platform.is_aix?
     pkg.build_requires "http://pl-build-tools.delivery.puppetlabs.net/aix/#{platform.os_version}/ppc/pl-gcc-5.2.0-11.aix#{platform.os_version}.ppc.rpm"
-    libdir = "/opt/pl-build-tools/lib/gcc/powerpc-ibm-aix#{platform.os_version}.0.0/5.2.0/"
+  libdir = "/opt/pl-build-tools/lib/gcc/powerpc-ibm-aix#{platform.os_version}.0.0/5.2.0/"
   elsif platform.is_windows?
     pkg.build_requires "pl-gdbm-#{platform.architecture}"
     pkg.build_requires "pl-iconv-#{platform.architecture}"
@@ -24,7 +24,7 @@ component "runtime" do |pkg, settings, platform|
     pkg.build_requires "pl-pdcurses-#{platform.architecture}"
     # We only need zlib because curl is dynamically linking against zlib
     pkg.build_requires "pl-zlib-#{platform.architecture}"
-  elsif platform.name =~ /sles-15|osx-10.12|fedora-29|el-8/
+  elsif platform.name =~ /sles-15|osx-10.12|osx-10.14|fedora-29|el-8/
     # These platforms use their default OS toolchain and have package
     # dependencies configured in the platform provisioning step.
   else
