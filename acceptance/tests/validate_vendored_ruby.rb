@@ -62,6 +62,7 @@ def setup_build_environment(agent)
     vanagon_pkgutil_contents = "mirror=https://artifactory.delivery.puppetlabs.net/artifactory/generic__remote_opencsw_mirror/testing"
     vanagon_pkgutil_path = "/var/tmp/vanagon-pkgutil.conf"
     on(agent, "echo \"#{vanagon_pkgutil_contents}\" > #{vanagon_pkgutil_path}")
+    on(agent, "/opt/csw/bin/pkgutil -y -i wget")
 
     ["rsync", "gmake", "pkgconfig", "ggrep", "gcc4core"].each { |pkg| install_package_on_agent.call(pkg) }
     install_package_on_agent.call("coreutils") if agent['platform'] =~ /sparc/
