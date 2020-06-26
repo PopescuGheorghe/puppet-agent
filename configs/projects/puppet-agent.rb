@@ -13,8 +13,8 @@ project "puppet-agent" do |proj|
 
   settings_uri = File.join(runtime_details['location'], "#{proj.settings[:puppet_runtime_basename]}.settings.yaml")
   sha1sum_uri = "#{settings_uri}.sha1"
-  metadata_uri = File.join(runtime_details['location'], "#{runtime_details['version']}.build_metadata.agent-runtime-#{agent_branch}.#{platform.name}.json")
-  proj.inherit_yaml_settings(settings_uri, sha1sum_uri, metadata_uri: metadata_uri)
+  # metadata_uri = File.join(runtime_details['location'], "#{runtime_details['version']}.build_metadata.agent-runtime-#{agent_branch}.#{platform.name}.json")
+  proj.inherit_yaml_settings(settings_uri, sha1sum_uri)
 
   # (PA-678) pe-r10k versions prior to 2.5.0.0 ship gettext gems.
   # Since we also ship those gems as part of puppet-agent
