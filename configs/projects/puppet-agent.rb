@@ -5,11 +5,16 @@ project "puppet-agent" do |proj|
   # - Modifications to global settings like flags and target directories should be made in puppet-runtime.
   # - Settings included in this file should apply only to local components in this repository.
   runtime_details = JSON.parse(File.read('configs/components/puppet-runtime.json'))
+  pxp_agent_details = JSON.parse(File.read('configs/components/pxp-agent.json'))
   agent_branch = 'master'
 
   settings[:puppet_runtime_version] = runtime_details['version']
   settings[:puppet_runtime_location] = runtime_details['location']
   settings[:puppet_runtime_basename] = "agent-runtime-#{agent_branch}-#{runtime_details['version']}.#{platform.name}"
+
+  settings[:pxp_agent_version] = pxp_agent_details['version']
+  settings[:pxp_agent_location] = pxp_agent_details['location']
+  settings[:pxp_agent_basename] = "pxp-agent-#{pxp_agent_details['version']}.#{platform.name}"
 
   settings_uri = File.join(runtime_details['location'], "#{proj.settings[:puppet_runtime_basename]}.settings.yaml")
   sha1sum_uri = "#{settings_uri}.sha1"
@@ -89,11 +94,7 @@ project "puppet-agent" do |proj|
   proj.component "puppet"
   proj.component "facter"
   proj.component "hiera"
-  proj.component "leatherman"
-  proj.component "cpp-hocon"
-  proj.component "cpp-pcp-client"
   proj.component "pxp-agent"
-  proj.component "libwhereami"
 
   # Then the dependencies
   # Provides augeas, curl, libedit, libxml2, libxslt, openssl, puppet-ca-bundle, ruby and rubygem-*
