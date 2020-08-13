@@ -34,6 +34,7 @@ component "cleanup" do |pkg, settings, platform|
       cleanup_steps << "#{rm} #{settings[:bindir]}/curl*"
     end
 
+    cleanup_steps << "#{rm} -rf #{settings[:service_conf]}"
 
     pkg.install { cleanup_steps }
   end

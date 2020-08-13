@@ -50,27 +50,29 @@ component "pxp-agent" do |pkg, settings, platform|
     pkg.directory File.join(settings[:logdir], 'pxp-agent'), mode: '0750'
   end
 
+  service_conf = settings[:service_conf]
+
   case platform.servicetype
   when 'systemd'
-    pkg.install_service '/ext/systemd/pxp-agent.service', '/ext/redhat/pxp-agent.sysconfig'
-    pkg.install_configfile '/ext/systemd/pxp-agent.logrotate', '/etc/logrotate.d/pxp-agent'
+    pkg.install_service "#{service_conf}/systemd/pxp-agent.service", "#{service_conf}/redhat/pxp-agent.sysconfig"
+    pkg.install_configfile "#{service_conf}/systemd/pxp-agent.logrotate", '/etc/logrotate.d/pxp-agent'
     if platform.is_deb?
       pkg.add_postinstall_action ['install'], ['systemctl disable pxp-agent.service >/dev/null || :']
     end
   when 'sysv'
     if platform.is_deb?
-      pkg.install_service '/ext/debian/pxp-agent.init', '/ext/debian/pxp-agent.default'
+      pkg.install_service "#{service_conf}/debian/pxp-agent.init", "#{service_conf}/debian/pxp-agent.default"
       pkg.add_postinstall_action ['install'], ['update-rc.d pxp-agent disable > /dev/null || :']
     elsif platform.is_sles?
-      pkg.install_service '/ext/suse/pxp-agent.init', '/ext/redhat/pxp-agent.sysconfig'
+      pkg.install_service "#{service_conf}/suse/pxp-agent.init", "#{service_conf}/redhat/pxp-agent.sysconfig"
     elsif platform.is_rpm?
-      pkg.install_service '/ext/redhat/pxp-agent.init', '/ext/redhat/pxp-agent.sysconfig'
+      pkg.install_service "#{service_conf}/redhat/pxp-agent.init", "#{service_conf}/redhat/pxp-agent.sysconfig"
     end
-    pkg.install_configfile '/ext/pxp-agent.logrotate', '/etc/logrotate.d/pxp-agent'
+    pkg.install_configfile "#{service_conf}/pxp-agent.logrotate'" '/etc/logrotate.d/pxp-agent'
   when 'launchd'
-    pkg.install_service '/ext/osx/pxp-agent.plist', nil, 'com.puppetlabs.pxp-agent'
+    pkg.install_service "#{service_conf}/osx/pxp-agent.plist", nil, 'com.puppetlabs.pxp-agent'
   when 'smf'
-    pkg.install_service '/ext/solaris/smf/pxp-agent.xml', service_type: 'network'
+    pkg.install_service "#{service_conf}/solaris/smf/pxp-agent.xml", service_type: 'network'
   when 'aix'
     pkg.install_service 'resources/aix/pxp-agent.service', nil, 'pxp-agent'
   when 'windows'
