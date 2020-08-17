@@ -68,7 +68,7 @@ component "pxp-agent" do |pkg, settings, platform|
     elsif platform.is_rpm?
       pkg.install_service "#{service_conf}/redhat/pxp-agent.init", "#{service_conf}/redhat/pxp-agent.sysconfig"
     end
-    pkg.install_configfile "#{service_conf}/pxp-agent.logrotate'" '/etc/logrotate.d/pxp-agent'
+    pkg.install_configfile "#{service_conf}/pxp-agent.logrotate'", '/etc/logrotate.d/pxp-agent'
   when 'launchd'
     pkg.install_service "#{service_conf}/osx/pxp-agent.plist", nil, 'com.puppetlabs.pxp-agent'
   when 'smf'
